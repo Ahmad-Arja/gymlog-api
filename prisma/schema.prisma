@@ -1,0 +1,46 @@
+  generator client {
+    provider = "prisma-client-js"
+  }
+
+  datasource db {
+    provider = "postgresql"
+    url      = env("DATABASE_URL")
+  }
+
+  model User {
+    id        Int       @id @default(autoincrement())
+    email     String    @unique
+    password  String
+    name      String
+    createdAt DateTime  @default(now())
+    workouts  Workout[]
+  }
+
+  model Exercise {
+    id               Int               @id @default(autoincrement())
+    name             String            @unique
+    muscleGroup      String
+    createdAt        DateTime          @default(now())
+    workoutExercises WorkoutExercise[]
+  }
+
+  model Workout {
+    id               Int               @id @default(autoincrement())
+    title            String
+    date             DateTime          @default(now())
+    notes            String?
+    userId           Int
+    user             User              @relation(fields: [userId], references: [id])
+    workoutExercises WorkoutExercise[]
+  }
+
+  model WorkoutExercise {
+    id         Int      @id @default(autoincrement())
+    sets       Int
+    reps       Int
+    weight     Float
+    workoutId  Int
+    exerciseId Int
+    workout    Workout  @relation(fields: [workoutId], references: [id])
+    exercise   Exercise @relation(fields: [exerciseId], references: [id])
+  }
