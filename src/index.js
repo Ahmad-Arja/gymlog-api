@@ -10,7 +10,7 @@ app.use(express.json())
 // Routes (we'll add these soon)
 app.use('/api/auth', require('./routes/auth'))
 app.use('/api/exercises', require('./routes/exercises'))
-// app.use('/api/workouts', require('./routes/workouts'))
+app.use('/api/workouts', require('./routes/workouts'))
 
 // Health check
 app.get('/', (req, res) => {
