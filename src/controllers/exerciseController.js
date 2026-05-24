@@ -5,7 +5,8 @@ const getAllExercises = async (req, res) => {
     const exercises = await prisma.exercise.findMany()
     res.json(exercises)
   } catch (error) {
-    res.status(500).json({ error: 'Something went wrong' })
+    console.error('getAllExercises error:', error.message)
+    res.status(500).json({ error: error.message })
   }
 }
 
@@ -15,7 +16,8 @@ const getExerciseById = async (req, res) => {
     if (!exercise) return res.status(404).json({ error: 'Exercise not found' })
     res.json(exercise)
   } catch (error) {
-    res.status(500).json({ error: 'Something went wrong' })
+    console.error('getExerciseById error:', error.message)
+    res.status(500).json({ error: error.message })
   }
 }
 
@@ -25,7 +27,8 @@ const createExercise = async (req, res) => {
     const exercise = await prisma.exercise.create({ data: { name, muscleGroup } })
     res.status(201).json(exercise)
   } catch (error) {
-    res.status(500).json({ error: 'Something went wrong' })
+    console.error('createExercise error:', error.message)
+    res.status(500).json({ error: error.message })
   }
 }
 
@@ -35,7 +38,8 @@ const updateExercise = async (req, res) => {
     const exercise = await prisma.exercise.update({ where: { id: parseInt(req.params.id) }, data: { name, muscleGroup } })
     res.json(exercise)
   } catch (error) {
-    res.status(500).json({ error: 'Something went wrong' })
+    console.error('updateExercise error:', error.message)
+    res.status(500).json({ error: error.message })
   }
 }
 
@@ -44,7 +48,8 @@ const deleteExercise = async (req, res) => {
     await prisma.exercise.delete({ where: { id: parseInt(req.params.id) } })
     res.json({ message: 'Exercise deleted' })
   } catch (error) {
-    res.status(500).json({ error: 'Something went wrong' })
+    console.error('deleteExercise error:', error.message)
+    res.status(500).json({ error: error.message })
   }
 }
 

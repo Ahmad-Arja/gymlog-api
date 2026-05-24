@@ -7,14 +7,18 @@ const app = express()
 app.use(cors())
 app.use(express.json())
 
-// Routes (we'll add these soon)
 app.use('/api/auth', require('./routes/auth'))
 app.use('/api/exercises', require('./routes/exercises'))
 app.use('/api/workouts', require('./routes/workouts'))
 
-// Health check
 app.get('/', (req, res) => {
   res.json({ message: 'GymLog API is running!' })
+})
+
+// Global error handler
+app.use((err, req, res, next) => {
+  console.error(err)
+  res.status(500).json({ error: err.message })
 })
 
 const PORT = process.env.PORT || 3000
