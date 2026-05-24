@@ -44,3 +44,11 @@
     workout    Workout  @relation(fields: [workoutId], references: [id])
     exercise   Exercise @relation(fields: [exerciseId], references: [id])
   }
+
+
+
+
+
+
+
+  

@@ -3,7 +3,7 @@ import request from 'supertest'
 import express from 'express'
 import cors from 'cors'
 
-// Build a test version of the app
+
 const app = express()
 app.use(cors())
 app.use(express.json())
@@ -15,7 +15,7 @@ let token = ''
 let workoutId = 0
 let exerciseId = 0
 
-// ── AUTH TESTS ──────────────────────────────────────────────────────────
+
 describe('Auth', () => {
   it('should register a new user', async () => {
     const res = await request(app)
@@ -48,6 +48,7 @@ describe('Auth', () => {
     expect(res.status).toBe(401)
   })
 
+  
   it('should reject protected route without token', async () => {
     const res = await request(app).get('/api/exercises')
     expect(res.status).toBe(401)
